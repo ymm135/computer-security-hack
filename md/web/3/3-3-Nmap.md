@@ -6,8 +6,12 @@ Nmap （Network Mapper， 网络映射器）是一款开放源代码的**网络�
 
 > [WAF](https://www.cloudflare.com/zh-cn/learning/ddos/glossary/web-application-firewall-waf/)（Web 应用程序防火墙）通过过滤和监控 Web 应用程序与互联网之间的 HTTP 流量来帮助保护 Web 应用程序。它通常可以保护 Web 应用程序，使其免受跨站点伪造、跨站点脚本 (XSS)、文件包含、SQL 注入及其他一些攻击的影响。WAF 属于协议第 7 层防御策略（OSI 模型中），并不能抵御所有类型的攻击。此攻击缓解方法通常隶属于一套工具，整套工具共同针对一系列攻击手段建立整体防御措施。  
 
-> ![WAF](../../../res/images/web/waf.png)  
 
+<br>
+<div align=center>
+    <img src="../../../res/images/web/waf.png" width="70%" height="70%" title="waf"></img>  
+</div>
+<br>
 
 Nmap的特点如下所示。
 - 主机探测：探测网络上的主机，如列出响应TCP和ICMP请求、开放特别端口的主机。
