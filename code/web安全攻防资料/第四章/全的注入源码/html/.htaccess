@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule userid-(.+)\.html$ sql-injection-get.php?id=$1&%1
+RewriteRule userid/(.+)/getpassword\.html$ sql-injection-get.php?id=$1&%1
+</IfModule>

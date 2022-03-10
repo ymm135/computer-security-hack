@@ -1,0 +1,52 @@
+#!/bin/bash
+# chkconfig: 35 85 15
+# description:  Startup script for the Memcache
+# Author:wdlinux
+# Url http://www.wdlinux.cn
+. /lib/lsb/init-functions
+
+path="/www/wdlinux/wdcp"
+prog="wdcp"
+start() {
+        echo -n $"Starting $prog:"
+        $path/$prog &
+        RETVAL=$?
+        echo
+}
+stop() {
+        echo -n $"Stopping $prog:"
+        killproc wdcp
+        RETVAL=$?
+        echo
+}
+restart() {
+        stop
+        start
+}
+uninstall() {
+    stop
+    rm -fr /www/wdlinux/wdcp
+    rm -f /etc/init.d/wdcp
+}
+
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        status)
+                status $prog
+                RETVAL=$?
+                ;;
+        restart)
+                restart
+		;;
+	uninstall)
+		uninstall
+		;;
+        *)
+                echo $"Usage:$0 {start|stop|restart}"
+                exit 1
+esac

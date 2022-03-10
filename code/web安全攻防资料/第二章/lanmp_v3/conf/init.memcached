@@ -1,0 +1,47 @@
+#!/bin/bash
+# chkconfig: 35 85 15
+# description:  Startup script for the Memcache
+# Author:wdlinux
+# Url http://www.wdlinux.cn
+. /etc/init.d/functions
+. /www/wdlinux/etc/memcached.conf
+
+[ ! $ip ] && ip="127.0.0.1"
+[ ! $mem ] && mem=512;
+[ ! $port ] && port=11211
+[ ! $conn ] && conn=5120
+path="/www/wdlinux/memcached/bin"
+prog="memcached"
+start() {
+        echo -n $"Starting $prog:"
+        daemon $path/$prog -d -m $mem -u www -l $ip -p $port -c $conn
+        RETVAL=$?
+        echo
+}
+stop() {
+        echo -n $"Stopping $prog:"
+        killproc memcached
+        RETVAL=$?
+        echo
+}
+restart() {
+        stop
+        start
+}
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        status)
+                status $prog
+                RETVAL=$?
+                ;;
+        restart)
+                restart;;
+        *)
+                echo $"Usage:$0 {start|stop|restart}"
+                exit 1
+esac

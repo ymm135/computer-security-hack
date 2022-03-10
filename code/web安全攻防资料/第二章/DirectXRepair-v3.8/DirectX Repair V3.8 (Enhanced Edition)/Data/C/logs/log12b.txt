@@ -1,0 +1,61 @@
+[2090:1310][2019-03-24T17:27:23]: Burn v3.6.3542.0, Windows v6.3 (Build 9600: Service Pack 0), path: D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\cp12\cp12b.exe, cmdline: '/quiet /repair /norestart /log "D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b.txt" -burn.unelevated BurnPipe.{17AD6A64-EBF9-42AB-85BD-AD33B8CA4C53} {BEC05BCD-F268-4C13-BC57-C5DD30F7F221} 8904'
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleLog' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b.txt'
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleOriginalSource' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\cp12\cp12b.exe'
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleName' to value 'Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030'
+[2090:1310][2019-03-24T17:27:23]: Detect 2 packages
+[2090:1310][2019-03-24T17:27:23]: Detected related bundle: {95716cce-fc71-413f-8ad5-56c2892d4b3a}, type: Upgrade, scope: PerMachine, version: 11.0.60610.1, operation: None
+[2090:1310][2019-03-24T17:27:23]: Detected related package: {E7D4E834-93EB-351F-B8FB-82CDAE623003}, scope: PerMachine, version: 11.0.60610.0, language: 0 operation: MajorUpgrade
+[2090:1310][2019-03-24T17:27:23]: Detected related package: {3D6AD258-61EA-35F5-812C-B7A02152996E}, scope: PerMachine, version: 11.0.60610.0, language: 0 operation: MajorUpgrade
+[2090:1310][2019-03-24T17:27:23]: Detected package: vcRuntimeMinimum_x86, state: Absent, cached: None
+[2090:1310][2019-03-24T17:27:23]: Detected package: vcRuntimeAdditional_x86, state: Absent, cached: None
+[2090:1310][2019-03-24T17:27:23]: Condition 'VersionNT >= v6.0 OR (VersionNT = v5.1 AND ServicePackLevel >= 2) OR (VersionNT = v5.2 AND ServicePackLevel >= 1)' evaluates to true.
+[2090:1310][2019-03-24T17:27:23]: Detect complete, result: 0x0
+[2090:1310][2019-03-24T17:27:23]: Plan 2 packages, action: Install
+[2090:1310][2019-03-24T17:27:23]: Condition 'VersionNT > v6.2 OR (VersionNT = v6.2 AND (NTProductType = 1)) OR (VersionNT = v6.2 AND NOT (NTProductType = 1)) OR (VersionNT = v6.0 AND NOT (NTProductType = 1)) OR (VersionNT = v6.1 AND (NTProductType = 1)) OR (VersionNT = v6.1 AND NOT (NTProductType = 1)) OR (VersionNT = v6.0 AND (NTProductType = 1)) OR (VersionNT = v5.1) OR (VersionNT = v5.2 AND NOT (NTProductType = 1)) OR (VersionNT = v5.2 AND (NTProductType = 1))' evaluates to true.
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleRollbackLog_vcRuntimeMinimum_x86' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_0_vcRuntimeMinimum_x86_rollback.txt'
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleLog_vcRuntimeMinimum_x86' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_0_vcRuntimeMinimum_x86.txt'
+[2090:1310][2019-03-24T17:27:23]: Condition 'VersionNT > v6.2 OR (VersionNT = v6.2 AND (NTProductType = 1)) OR (VersionNT = v6.2 AND NOT (NTProductType = 1)) OR (VersionNT = v6.0 AND NOT (NTProductType = 1)) OR (VersionNT = v6.1 AND (NTProductType = 1)) OR (VersionNT = v6.1 AND NOT (NTProductType = 1)) OR (VersionNT = v6.0 AND (NTProductType = 1)) OR (VersionNT = v5.1) OR (VersionNT = v5.2 AND NOT (NTProductType = 1)) OR (VersionNT = v5.2 AND (NTProductType = 1))' evaluates to true.
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleRollbackLog_vcRuntimeAdditional_x86' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_1_vcRuntimeAdditional_x86_rollback.txt'
+[2090:1310][2019-03-24T17:27:23]: Setting string variable 'WixBundleLog_vcRuntimeAdditional_x86' to value 'D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_1_vcRuntimeAdditional_x86.txt'
+[2090:1310][2019-03-24T17:27:23]: Planned package: vcRuntimeMinimum_x86, state: Absent, default requested: Present, ba requested: Present, execute: Install, rollback: Uninstall, cache: Yes, uncache: No, dependency: Register
+[2090:1310][2019-03-24T17:27:23]: Planned package: vcRuntimeAdditional_x86, state: Absent, default requested: Present, ba requested: Present, execute: Install, rollback: Uninstall, cache: Yes, uncache: No, dependency: Register
+[2090:1310][2019-03-24T17:27:23]: Planned related bundle: {95716cce-fc71-413f-8ad5-56c2892d4b3a}, type: Upgrade, default requested: Absent, ba requested: Absent, execute: Uninstall, rollback: Install, dependency: None
+[2090:1310][2019-03-24T17:27:23]: Plan complete, result: 0x0
+[2090:1310][2019-03-24T17:27:23]: Apply begin
+[22C8:2068][2019-03-24T17:27:24]: Creating a system restore point.
+[22C8:2068][2019-03-24T17:27:24]: Could not create system restore point, error: 0x80070422. Continuing...
+[22C8:2068][2019-03-24T17:27:24]: Caching bundle from: 'C:\Users\ADMINI~1\AppData\Local\Temp\{33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}\.be\vcredist_x86.exe' to: 'C:\ProgramData\Package Cache\{33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}\vcredist_x86.exe'
+[22C8:2068][2019-03-24T17:27:24]: Registering bundle dependency provider: {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}, version: 11.0.61030.0
+[22C8:2D40][2019-03-24T17:27:24]: Verified acquired payload: vcRuntimeMinimum_x86 at path: C:\ProgramData\Package Cache\.unverified\vcRuntimeMinimum_x86, moving to: C:\ProgramData\Package Cache\{BD95A8CD-1D9F-35AD-981A-3E7925026EBB}v11.0.61030\packages\vcRuntimeMinimum_x86\vc_runtimeMinimum_x86.msi.
+[22C8:2D40][2019-03-24T17:27:24]: Verified acquired payload: cab54A5CABBE7274D8A22EB58060AAB7623 at path: C:\ProgramData\Package Cache\.unverified\cab54A5CABBE7274D8A22EB58060AAB7623, moving to: C:\ProgramData\Package Cache\{BD95A8CD-1D9F-35AD-981A-3E7925026EBB}v11.0.61030\packages\vcRuntimeMinimum_x86\cab1.cab.
+[22C8:2D40][2019-03-24T17:27:24]: Verified acquired payload: vcRuntimeAdditional_x86 at path: C:\ProgramData\Package Cache\.unverified\vcRuntimeAdditional_x86, moving to: C:\ProgramData\Package Cache\{B175520C-86A2-35A7-8619-86DC379688B9}v11.0.61030\packages\vcRuntimeAdditional_x86\vc_runtimeAdditional_x86.msi.
+[22C8:2D40][2019-03-24T17:27:24]: Verified acquired payload: cabB3E1576D1FEFBB979E13B1A5379E0B16 at path: C:\ProgramData\Package Cache\.unverified\cabB3E1576D1FEFBB979E13B1A5379E0B16, moving to: C:\ProgramData\Package Cache\{B175520C-86A2-35A7-8619-86DC379688B9}v11.0.61030\packages\vcRuntimeAdditional_x86\cab1.cab.
+[22C8:2068][2019-03-24T17:27:24]: Applying execute package: vcRuntimeMinimum_x86, action: Install, path: C:\ProgramData\Package Cache\{BD95A8CD-1D9F-35AD-981A-3E7925026EBB}v11.0.61030\packages\vcRuntimeMinimum_x86\vc_runtimeMinimum_x86.msi, arguments: ' MSIFASTINSTALL="7" NOVSUI="1"'
+[2090:1310][2019-03-24T17:27:25]: Applied execute package: vcRuntimeMinimum_x86, result: 0x0, restart: None
+[22C8:2068][2019-03-24T17:27:25]: Registering dependency: {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f} on package provider: Microsoft.VS.VC_RuntimeMinimum_x86,v11, package: vcRuntimeMinimum_x86
+[22C8:2068][2019-03-24T17:27:25]: Registering dependency: {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f} on package provider: Microsoft.VS.VC_RuntimeMinimumVSU_x86,v11, package: vcRuntimeMinimum_x86
+[22C8:2068][2019-03-24T17:27:25]: Applying execute package: vcRuntimeAdditional_x86, action: Install, path: C:\ProgramData\Package Cache\{B175520C-86A2-35A7-8619-86DC379688B9}v11.0.61030\packages\vcRuntimeAdditional_x86\vc_runtimeAdditional_x86.msi, arguments: ' MSIFASTINSTALL="7" NOVSUI="1"'
+[2090:1310][2019-03-24T17:27:26]: Applied execute package: vcRuntimeAdditional_x86, result: 0x0, restart: None
+[22C8:2068][2019-03-24T17:27:26]: Registering dependency: {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f} on package provider: Microsoft.VS.VC_RuntimeAdditional_x86,v11, package: vcRuntimeAdditional_x86
+[22C8:2068][2019-03-24T17:27:26]: Registering dependency: {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f} on package provider: Microsoft.VS.VC_RuntimeAdditionalVSU_x86,v11, package: vcRuntimeAdditional_x86
+[22C8:2068][2019-03-24T17:27:26]: Applying execute package: {95716cce-fc71-413f-8ad5-56c2892d4b3a}, action: Uninstall, path: C:\ProgramData\Package Cache\{95716cce-fc71-413f-8ad5-56c2892d4b3a}\vcredist_x86.exe, arguments: '"C:\ProgramData\Package Cache\{95716cce-fc71-413f-8ad5-56c2892d4b3a}\vcredist_x86.exe" -uninstall -quiet -burn.related.upgrade'
+[22C8:2068][2019-03-24T17:27:27]: Removed package dependency provider: {95716cce-fc71-413f-8ad5-56c2892d4b3a}, package: {95716cce-fc71-413f-8ad5-56c2892d4b3a}
+[2090:1310][2019-03-24T17:27:27]: Applied execute package: {95716cce-fc71-413f-8ad5-56c2892d4b3a}, result: 0x0, restart: None
+[2090:1310][2019-03-24T17:27:27]: Apply complete, result: 0x0, restart: None, ba requested restart:  No
+[2090:1310][2019-03-24T17:27:27]: Shutting down, exit code: 0x0
+[2090:1310][2019-03-24T17:27:27]: Variable: NTProductType = 1
+[2090:1310][2019-03-24T17:27:27]: Variable: VersionNT = 6.3.0.0
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleAction = 4
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleElevated = 1
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleInstalled = 0
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleLog = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b.txt
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleLog_vcRuntimeAdditional_x86 = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_1_vcRuntimeAdditional_x86.txt
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleLog_vcRuntimeMinimum_x86 = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_0_vcRuntimeMinimum_x86.txt
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleName = Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleOriginalSource = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\cp12\cp12b.exe
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleProviderKey = {33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleRollbackLog_vcRuntimeAdditional_x86 = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_1_vcRuntimeAdditional_x86_rollback.txt
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleRollbackLog_vcRuntimeMinimum_x86 = D:\网络安全\出版书籍--------\电子工业出版社\2.Web 安全攻防：渗透测试实战指南\配套工具-有密码\第二章\DirectXRepair-v3.8\DirectX Repair V3.8 (Enhanced Edition)\Data\C\logs\log12b_0_vcRuntimeMinimum_x86_rollback.txt
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleTag = 
+[2090:1310][2019-03-24T17:27:27]: Variable: WixBundleVersion = 11.0.61030.0
+[2090:1310][2019-03-24T17:27:27]: Exit code: 0x0, restarting: No
