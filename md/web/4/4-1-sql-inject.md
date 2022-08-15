@@ -93,6 +93,10 @@ SELECT * FROM COLUMNS
 
 
 
+Union注入攻击的测试地址: http://127.0.0.1/union.php?id=1  [代码地址](../../../code/web安全攻防资料/第四章/靶场源码/注入/union.php)
+访问该该网页时，页面的返回结果如下:  
+
+
 
 
 

@@ -4,6 +4,7 @@
   - [应用层](#应用层)
     - [HTTP](#http)
     - [SNMP](#snmp)
+    - [SYSLOG](#syslog)
     - [FTP](#ftp)
     - [Telnet](#telnet)
 - [传输层](#传输层)
@@ -30,11 +31,267 @@
 
 ## 网络协议介绍  
 ### 应用层  
-#### HTTP(Hypertext Transfer Protocol) 
-#### SNMP(Simple Network Management Protocol)
+#### HTTP
+(Hypertext Transfer Protocol)  
+
+#### SNMP
+(Simple Network Management Protocol)
+
+OID: Trap Object IDs (OIDs)  
+`1.3.6.1.6.3.1.1.4.1`含义是:  
+{iso(1) identified-organization(3) dod(6) internet(1) snmpV2(6) snmpModules(3) snmpAlarmNextIndex(1) snmpMIBObjects(1) snmpTrap(4) snmpTrapOID(1)}  
 
 
-#### FTP(File Transfer Protocol) 
+- #### v2
+go发送代码
+```shell
+g.Default.Target = "127.0.0.1"
+	g.Default.Port = 162
+	g.Default.Version = g.Version2c
+	g.Default.Community = "public"
+	g.Default.Logger = g.NewLogger(log.New(os.Stdout, "", 0))
+	err := g.Default.Connect()
+	if err != nil {
+		log.Fatalf("Connect() err: %v", err)
+	}
+	defer g.Default.Conn.Close()
+
+	pdu := g.SnmpPDU{
+		Name:  ".1.3.6.1.6.3.1.1.4.1.0",
+		Type:  g.ObjectIdentifier,
+		Value: ".1.3.6.1.6.3.1.1.5.1",
+	}
+```
+
+修改ip地址为非本机`127.0.0.1`    
+`62926	1357.586253	10.25.16.221	10.25.10.125	SNMP	114	snmpV2-trap 1.3.6.1.2.1.1.3.0 1.3.6.1.6.3.1.1.4.1.0`  
+```shell
+Frame 62926: 114 bytes on wire (912 bits), 114 bytes captured (912 bits) on interface en0, id 0
+Ethernet II, Src: Apple_51:a3:12 (88:e9:fe:51:a3:12), Dst: HuaweiTe_7a:25:30 (c4:a4:02:7a:25:30)
+Internet Protocol Version 4, Src: 10.25.16.221, Dst: 10.25.10.125
+User Datagram Protocol, Src Port: 61128, Dst Port: 162
+    Source Port: 61128
+    Destination Port: 162
+    Length: 80
+    Checksum: 0xa045 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 1393]
+    [Timestamps]
+    UDP payload (72 bytes)
+Simple Network Management Protocol
+    version: v2c (1)
+    community: public
+    data: snmpV2-trap (7)
+        snmpV2-trap
+            request-id: 1541450806
+            error-status: noError (0)
+            error-index: 0
+            variable-bindings: 2 items
+                1.3.6.1.2.1.1.3.0: 1660550097
+                    Object Name: 1.3.6.1.2.1.1.3.0 (iso.3.6.1.2.1.1.3.0)
+                    Value (Timeticks): 1660550097
+                1.3.6.1.6.3.1.1.4.1.0: 1.3.6.1.6.3.1.1.5.1 (iso.3.6.1.6.3.1.1.5.1)
+                    Object Name: 1.3.6.1.6.3.1.1.4.1.0 (iso.3.6.1.6.3.1.1.4.1.0)
+                    Value (OID): 1.3.6.1.6.3.1.1.5.1 (iso.3.6.1.6.3.1.1.5.1)
+
+```
+
+如果使用`ObjectIdentifier  Asn1BER = 0x06`发送如下json数据  
+```go
+pdu := g.SnmpPDU{
+		Name:  ".1.3.6.1.6.3.1.1.4.1.0",
+		Type:  g.ObjectIdentifier,
+		Value: "{\"data\":\"ddd\"}",
+	}
+```
+
+报错:  
+```shell
+SEND Error on the first Request Error: marshal: marshalPDU: unable to marshal varbind list: error marshalling ObjectIdentifier: unable to marshal OID: Invalid object identifier
+2022/08/15 16:05:32 SendTrap() err: marshal: marshalPDU: unable to marshal varbind list: error marshalling ObjectIdentifier: unable to marshal OID: Invalid object identifier
+```
+
+如果发送的数据类型为`BitString         Asn1BER = 0x03`:
+```shell
+Frame 74861: 119 bytes on wire (952 bits), 119 bytes captured (952 bits) on interface en0, id 0
+Ethernet II, Src: Apple_51:a3:12 (88:e9:fe:51:a3:12), Dst: HuaweiTe_7a:25:30 (c4:a4:02:7a:25:30)
+Internet Protocol Version 4, Src: 10.25.16.221, Dst: 10.25.10.125
+User Datagram Protocol, Src Port: 53688, Dst Port: 162
+Simple Network Management Protocol
+    version: v2c (1)
+    community: public
+    data: snmpV2-trap (7)
+        snmpV2-trap
+            request-id: 184682676
+            error-status: noError (0)
+            error-index: 0
+            variable-bindings: 2 items
+                1.3.6.1.2.1.1.3.0: 1660550580
+                    Object Name: 1.3.6.1.2.1.1.3.0 (iso.3.6.1.2.1.1.3.0)
+                    Value (Timeticks): 1660550580
+                1.3.6.1.6.3.1.1.4.1.0: 7b2264617461223a22646464227d
+                    Object Name: 1.3.6.1.6.3.1.1.4.1.0 (iso.3.6.1.6.3.1.1.4.1.0)
+                    Value (Unknown): 7b2264617461223a22646464227d
+```
+`Value (Unknown): 7b2264617461223a22646464227d`就是json内容
+```shell
+0000   c4 a4 02 7a 25 30 88 e9 fe 51 a3 12 08 00 45 00   ...z%0...Q....E.
+0010   00 69 9c 9c 00 00 40 11 ae 5c 0a 19 10 dd 0a 19   .i....@..\......
+0020   0a 7d d1 b8 00 a2 00 55 d4 4d 30 4b 02 01 01 04   .}.....U.M0K....
+0030   06 70 75 62 6c 69 63 a7 3e 02 04 0b 02 08 b4 02   .public.>.......
+0040   01 00 02 01 00 30 30 30 10 06 08 2b 06 01 02 01   .....000...+....
+0050   01 03 00 43 04 62 f9 fd b4 30 1c 06 0a 2b 06 01   ...C.b...0...+..
+0060   06 03 01 01 04 01 00 03 0e 7b 22 64 61 74 61 22   .........{"data"
+0070   3a 22 64 64 64 22 7d                              :"ddd"}
+```
+
+
+
+如果发送的数据类型为`OctetString       Asn1BER = 0x04`:
+```shell
+Frame 75554: 119 bytes on wire (952 bits), 119 bytes captured (952 bits) on interface en0, id 0
+Ethernet II, Src: Apple_51:a3:12 (88:e9:fe:51:a3:12), Dst: HuaweiTe_7a:25:30 (c4:a4:02:7a:25:30)
+Internet Protocol Version 4, Src: 10.25.16.221, Dst: 10.25.10.125
+User Datagram Protocol, Src Port: 56650, Dst Port: 162
+Simple Network Management Protocol
+    version: v2c (1)
+    community: public
+    data: snmpV2-trap (7)
+        snmpV2-trap
+            request-id: 39159588
+            error-status: noError (0)
+            error-index: 0
+            variable-bindings: 2 items
+                1.3.6.1.2.1.1.3.0: 1660550615
+                    Object Name: 1.3.6.1.2.1.1.3.0 (iso.3.6.1.2.1.1.3.0)
+                    Value (Timeticks): 1660550615
+                1.3.6.1.6.3.1.1.4.1.0: "{"data":"ddd"}"
+                    Object Name: 1.3.6.1.6.3.1.1.4.1.0 (iso.3.6.1.6.3.1.1.4.1.0)
+                    Value (OctetString): "{"data":"ddd"}"
+```
+
+查看的数据就是字符  
+
+- #### V3
+go发送的代码
+```go
+	params := &g.GoSNMP{
+		Target:        "10.15.10.125",
+		Port:          162,
+		Version:       g.Version3,
+		Timeout:       time.Duration(30) * time.Second,
+		SecurityModel: g.UserSecurityModel,
+		MsgFlags:      g.AuthPriv,
+		Logger:        g.NewLogger(log.New(os.Stdout, "", 0)),
+		SecurityParameters: &g.UsmSecurityParameters{UserName: "user",
+			AuthoritativeEngineID:    "1234",
+			AuthenticationProtocol:   g.SHA,
+			AuthenticationPassphrase: "password",
+			PrivacyProtocol:          g.DES,
+			PrivacyPassphrase:        "password",
+		},
+	}
+
+    pdu := g.SnmpPDU{
+		Name:  ".1.3.6.1.6.3.1.1.4.1.0",
+		Type:  g.ObjectIdentifier,
+		Value: ".1.3.6.1.6.3.1.1.5.1",
+	}
+```
+
+wireshark接收到的报文
+```shell
+Frame 29621: 187 bytes on wire (1496 bits), 187 bytes captured (1496 bits) on interface en0, id 0
+Ethernet II, Src: Apple_51:a3:12 (88:e9:fe:51:a3:12), Dst: HuaweiTe_7a:25:30 (c4:a4:02:7a:25:30)
+Internet Protocol Version 4, Src: 10.25.16.221, Dst: 10.15.10.125
+User Datagram Protocol, Src Port: 59701, Dst Port: 162
+    Source Port: 59701
+    Destination Port: 162
+    Length: 153
+    Checksum: 0xafca [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 453]
+    [Timestamps]
+    UDP payload (145 bytes)
+Simple Network Management Protocol
+    msgVersion: snmpv3 (3)
+    msgGlobalData
+    msgAuthoritativeEngineID: 31323334
+        0... .... = Engine ID Conformance: RFC1910 (Non-SNMPv3)
+        Engine Enterprise ID: Unknown (825373492)
+        Data not conforming to RFC1910
+    msgAuthoritativeEngineBoots: 0
+    msgAuthoritativeEngineTime: 0
+    msgUserName: user
+    msgAuthenticationParameters: 69b6b5b63ba685eb86d2106b
+    msgPrivacyParameters: 0000000025f3f764
+    msgData: encryptedPDU (1)
+        encryptedPDU: 187d6bed74f91972f26e62663892d347e9588fb707275f22c25a6c5602a3e0127897b8f1…
+```
+
+解密的报文是:``
+
+
+
+#### SYSLOG
+Syslog常被称为系统日志或系统记录，是一种用来在互联网协议（TCP/IP）的网络中传递记录档消息的标准。这个词汇常用来指涉实际的syslog 协议，或者那些提交syslog消息的应用程序或数据库。  
+
+[pcap文件](../../res/files/pcap/syslog-demo.pcap)
+
+报文样例:  
+```shell
+0000   88 e9 fe 51 a3 12 c4 a4 02 7a 25 30 08 00 45 00   ...Q.....z%0..E.
+0010   01 b0 8b 6b 40 00 3f 11 7f 45 0a 19 0a 7e 0a 19   ...k@.?..E...~..
+0020   10 dd a5 b2 02 02 01 9c 17 46 3c 33 30 3e 32 30   .........F<30>20
+0030   32 32 2d 30 37 2d 32 33 54 31 36 3a 35 39 3a 30   22-07-23T16:59:0
+0040   38 2b 30 38 3a 30 30 20 6c 6f 63 61 6c 68 6f 73   8+08:00 localhos
+0050   74 2e 6c 6f 63 61 6c 64 6f 6d 61 69 6e 20 41 75   t.localdomain Au
+0060   64 69 74 5b 34 35 38 34 5d 3a 20 7b 22 68 65 61   dit[4584]: {"hea
+0070   64 65 72 22 3a 7b 22 75 73 65 72 4e 61 6d 65 22   der":{"userName"
+0080   3a 22 22 2c 22 74 69 6d 65 22 3a 22 32 30 32 32   :"","time":"2022
+0090   2d 30 37 2d 32 33 20 31 36 3a 35 39 3a 30 38 22   -07-23 16:59:08"
+00a0   2c 22 69 70 22 3a 22 22 2c 22 66 61 63 74 6f 72   ,"ip":"","factor
+00b0   79 22 3a 22 6e 65 74 76 69 6e 65 22 2c 22 65 71   y":"netvine","eq
+00c0   75 69 70 6d 65 6e 74 22 3a 22 61 75 64 69 74 22   uipment":"audit"
+00d0   2c 22 72 65 73 75 6c 74 22 3a 30 2c 22 6d 6f 64   ,"result":0,"mod
+00e0   75 6c 65 22 3a 22 66 6c 6f 77 5f 6c 6f 67 22 2c   ule":"flow_log",
+00f0   22 73 75 62 4d 6f 64 75 6c 65 22 3a 22 22 7d 2c   "subModule":""},
+0100   22 64 61 74 61 22 3a 7b 22 74 69 6d 65 22 3a 22   "data":{"time":"
+0110   32 30 32 32 2d 30 37 2d 32 33 20 31 36 3a 35 39   2022-07-23 16:59
+0120   3a 30 38 22 2c 22 64 65 76 69 63 65 4e 61 6d 65   :08","deviceName
+0130   22 3a 22 e6 9c aa e7 9f a5 22 2c 22 69 70 22 3a   ":"......","ip":
+0140   22 31 30 2e 32 35 2e 31 30 2e 31 32 36 22 2c 22   "10.25.10.126","
+0150   6d 61 63 22 3a 22 39 30 3a 62 38 3a 65 30 3a 30   mac":"90:b8:e0:0
+0160   31 3a 34 62 3a 30 35 22 2c 22 70 72 6f 74 6f 63   1:4b:05","protoc
+0170   6f 6c 22 3a 22 75 6e 6b 6e 6f 77 6e 22 2c 22 73   ol":"unknown","s
+0180   65 6e 64 42 79 74 65 73 22 3a 31 30 34 31 39 2c   endBytes":10419,
+0190   22 72 65 63 76 42 79 74 65 73 22 3a 30 2c 22 64   "recvBytes":0,"d
+01a0   65 74 61 69 6c 22 3a 22 e6 b5 81 e9 87 8f e5 ae   etail":"........
+01b0   a1 e8 ae a1 e6 97 a5 e5 bf 97 22 7d 7d 0a         .........."}}.
+```
+
+解析内容
+```shell
+Frame 1: 446 bytes on wire (3568 bits), 446 bytes captured (3568 bits)
+Ethernet II, Src: HuaweiTe_7a:25:30 (c4:a4:02:7a:25:30), Dst: Apple_51:a3:12 (88:e9:fe:51:a3:12)
+Internet Protocol Version 4, Src: 10.25.10.126, Dst: 10.25.16.221
+User Datagram Protocol, Src Port: 42418, Dst Port: 514
+    Source Port: 42418
+    Destination Port: 514
+    Length: 412
+    Checksum: 0x1746 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 0]
+    [Timestamps]
+    UDP payload (404 bytes)
+ [truncated]Syslog message: DAEMON.INFO: 2022-07-23T16:59:08+08:00 localhost.localdomain Audit[4584]: {"header":{"userName":"","time":"2022-07-23 16:59:08","ip":"","factory":"netvine","equipment":"audit","result":0,"module":"flow_log","su
+    0001 1... = Facility: DAEMON - system daemons (3)
+    .... .110 = Level: INFO - informational (6)
+    Message [truncated]: 2022-07-23T16:59:08+08:00 localhost.localdomain Audit[4584]: {"header":{"userName":"","time":"2022-07-23 16:59:08","ip":"","factory":"netvine","equipment":"audit","result":0,"module":"flow_log","subModule":""},"data":
+```
+
+#### FTP  
+(File Transfer Protocol) 
 FTP服务一般运行在20和21两个端口。端口20用于在客户端和服务器之间传输数据流，而端口21用于传输控制流，并且是命令通向ftp服务器的进口。当数据通过数据流传输时，控制流处于空闲状态。而当控制流空闲很长时间后，客户端的防火墙会将其会话置为超时，这样当大量数据通过防火墙时，会产生一些问题。此时，虽然文件可以成功的传输，但因为控制会话，会被防火墙断开；传输会产生一些错误。  
 
 - ##### 主动和被动模式  
