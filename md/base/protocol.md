@@ -357,7 +357,7 @@ Tue Mar  8 06:20:00 2022 [pid 53] CONNECT: Client "172.17.0.1"
 Tue Mar  8 06:20:00 2022 [pid 52] [user] OK LOGIN: Client "172.17.0.1"
 ```
 
-[FTP协议pcap文件示例](res/files/pcap/ftp-login.pcapng)  
+[FTP协议pcap文件示例](../../res/files/pcap/ftp-login.pcapng)  
 
 请求的用户名报文:  
 ```
